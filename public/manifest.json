@@ -1,0 +1,38 @@
+{
+  "name": "Kick Signal",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "__MSG_appDescription__",
+  "default_locale": "en",
+  "icons": {
+    "48": "./icons/icon48.png",
+    "128": "./icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "offscreen",
+    "notifications",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "host_permissions": [
+    "https://kick.com/*"
+  ],
+   "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "background": {
+    "service_worker": "./background.js"
+  },
+  "options_ui": {
+    "page": "./html/option.html"
+  },
+  "action": {
+    "default_popup": "./html/popup.html"
+  }
+}

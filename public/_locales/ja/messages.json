@@ -1,0 +1,53 @@
+{
+  "appDescription": {
+    "message": "指定した Kick ストリーマーが配信開始したときの自動入場が可能になります。"
+  },
+  "autoLaunch": {
+    "message": "自動入場"
+  },
+  "autoLaunchButtonTooltip": {
+    "message": "自動入場の On/Off を切り替えます"
+  },
+  "duplicateTabGuard": {
+    "message": "重複タブブロック"
+  },
+  "duplicateTabGuardButtonTooltip": {
+    "message": "自動入場時の重複タブブロックの On/Off を切り替えます。On の場合、自動入場対象の配信のタブがすでに開かれているときは、新しくタブを開きません。"
+  },
+  "refresh": {
+    "message": "更新"
+  },
+  "refreshButtonTooltip": {
+    "message": "タブの内容を更新します"
+  },
+  "options": {
+    "message": "オプション"
+  },
+  "optionsButtonTooltip": {
+    "message": "オプション画面を開きます"
+  },
+  "following": {
+    "message": "フォロー中"
+  },
+  "noLiveStreams": {
+    "message": "現在ライブ中の配信はありません。"
+  },
+  "autoLaunchSettings": {
+    "message": "自動入場設定"
+  },
+  "autoUnmuteCheckbox": {
+    "message": "自動入場後にミュートを自動解除する"
+  },
+  "notificationSettings": {
+    "message": "通知設定"
+  },
+  "showNotificationCheckbox": {
+    "message": "通知を表示する"
+  },
+  "notificationSoundVolume": {
+    "message": "通知音量"
+  },
+  "testSoundVolume": {
+    "message": "[テスト]"
+  }
+}

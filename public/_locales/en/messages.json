@@ -1,0 +1,53 @@
+{
+  "appDescription": {
+    "message": "Get notified when your favorite Kick streamers go live with auto-launch capability."
+  },
+  "autoLaunch": {
+    "message": "Auto Launch"
+  },
+  "autoLaunchButtonTooltip": {
+    "message": "Toggle auto-launch behavior"
+  },
+  "duplicateTabGuard": {
+    "message": "Duplicate Tab Guard"
+  },
+  "duplicateTabGuardButtonTooltip": {
+    "message": "Toggle duplicate tab guard when auto-launching. When on, a new tab will not be opened if a tab for the stream is already open."
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "refreshButtonTooltip": {
+    "message": "Refresh tab content"
+  },
+  "options": {
+    "message": "Options"
+  },
+  "optionsButtonTooltip": {
+    "message": "Open options page"
+  },
+  "following": {
+    "message": "Following"
+  },
+  "noLiveStreams": {
+    "message": "No live streams."
+  },
+  "autoLaunchSettings": {
+    "message": "Auto-Launch Settings"
+  },
+  "autoUnmuteCheckbox": {
+    "message": "Automatically unmute player after auto-launch"
+  },
+  "notificationSettings": {
+    "message": "Notification Settings"
+  },
+  "showNotificationCheckbox": {
+    "message": "Show notifications"
+  },
+  "notificationSoundVolume": {
+    "message": "Sound volume"
+  },
+  "testSoundVolume": {
+    "message": "[Test]"
+  }
+}

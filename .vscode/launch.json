@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "build-dev",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run build-dev"
+    },
+    {
+      "name": "lint-fix",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run lint-fix"
+    }
+  ]
+}

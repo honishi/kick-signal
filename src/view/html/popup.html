@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <script src="../popup.js"></script>
+  <link rel="stylesheet" href="../css/popup.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" />
+  <title>Popup</title>
+</head>
+
+<body>
+  <!-- Menu -->  
+  <div class="menu-container">
+    <span class="menu-item">
+      <span class="material-icons" id="suspend-icon"></span>
+      <button id="suspend-button" class="menu-button"></button>
+    </span>
+    <span class="menu-item">
+      <span class="material-icons-outlined" id="duplicate-tab-guard-icon"></span>
+      <button id="duplicate-tab-guard-button" class="menu-button"></button>
+    </span>
+    <span class="menu-item">
+      <span class="material-icons">refresh</span>
+      <button id="refresh-button" class="menu-button"></button>
+    </span>
+    <span class="menu-item">
+      <span class="material-icons">settings</span>
+      <button id="option-button" class="menu-button"></button>
+    </span>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-container">
+    <button id="following-button" class="tab-button active" data-tab="following-channels"></button>
+  </div>
+
+  <!-- Content -->
+  <div class="content-container">
+    <!-- Following Channels Tab -->
+    <div id="following-channels" class="tab-content active">
+      <div class="channels-container" id="following-channels-list"></div>
+    </div>
+  </div>
+</body>
+
+</html>
