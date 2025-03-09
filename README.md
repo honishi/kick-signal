@@ -6,7 +6,7 @@ Get notified when your favorite Kick streamers go live with auto-launch capabili
 
 ## Installation
 
-* [Chrome Web Store]()
+* [Chrome Web Store](https://chromewebstore.google.com/detail/kick-signal/kpjjlpmbcbnbemdadfnkgmhchiibifda)
 
 ## Build
 
