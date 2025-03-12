@@ -16,7 +16,7 @@ export function FollowingChannels(props: { refreshDate: Date }) {
       setLoading(true);
       const popup = container.resolve<Popup>(InjectTokens.Popup);
       let offset: number | null = 0;
-      const MAX_PAGES = 10;
+      const MAX_PAGES = 100;
       let page = 0;
       do {
         const channels = await popup.getFollowingChannels(offset);
