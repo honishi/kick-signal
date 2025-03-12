@@ -3,11 +3,11 @@ import { inject, injectable } from "tsyringe";
 import { InjectTokens } from "../../di/inject-tokens";
 import { BrowserApi } from "../infra-interface/browser-api";
 import { KickApi } from "../infra-interface/kick-api";
-import { KickChannel } from "../model/kick-channel";
+import { KickChannels } from "../model/kick-channel";
 import { defaultBadgeBackgroundColor, suspendedBadgeBackgroundColor } from "./colors";
 
 export interface Popup {
-  getFollowingChannels(): Promise<KickChannel[]>;
+  getFollowingChannels(offset: number): Promise<KickChannels>;
   setBadgeNumber(number: number): Promise<void>;
   isSuspended(): Promise<boolean>;
   setSuspended(suspended: boolean): Promise<void>;
@@ -25,8 +25,8 @@ export class PopupImpl implements Popup {
     @inject(InjectTokens.KickApi) private kickApi: KickApi,
   ) {}
 
-  async getFollowingChannels(): Promise<KickChannel[]> {
-    return this.kickApi.getFollowingChannels(false);
+  async getFollowingChannels(offset: number): Promise<KickChannels> {
+    return this.kickApi.getFollowingChannels(offset);
   }
 
   async setBadgeNumber(number: number): Promise<void> {

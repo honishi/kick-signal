@@ -7,9 +7,8 @@ import { container } from "tsyringe";
 
 import { InjectTokens } from "../di/inject-tokens";
 import { configureDefaultContainer } from "../di/register";
-import { KickChannel } from "../domain/model/kick-channel";
 import { Popup } from "../domain/usecase/popup";
-import Channel from "./component/Channel";
+import { FollowingChannels } from "./component/FollowingChannels";
 
 const SUSPEND_BUTTON_ID = "suspend-button";
 const DUPLICATE_TAB_GUARD_BUTTON_ID = "duplicate-tab-guard-button";
@@ -107,64 +106,7 @@ async function updateFollowingChannels() {
   if (!roots.followingChannels) {
     roots.followingChannels = createRoot(channelsContainer);
   }
-
-  try {
-    const popup = container.resolve<Popup>(InjectTokens.Popup);
-    roots.followingChannels.render(<LoadingLabel />);
-    const channels = await popup.getFollowingChannels();
-    // const channels: KickChannel[] = [];
-    if (channels.length === 0) {
-      roots.followingChannels.render(<NoChannelsLabel />);
-    } else {
-      roots.followingChannels.render(<ChannelGrid channels={channels} />);
-    }
-    const liveChannels = channels.filter((channel) => channel.isLive);
-    await popup.setBadgeNumber(liveChannels.length);
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-function LoadingLabel() {
-  const [dots, setDots] = React.useState(0);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setDots((prevDots) => (prevDots + 1) % 4);
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const loadingDots = ".".repeat(dots);
-  return (
-    <div className="m-4 flex w-full items-center gap-2 py-10 text-sm">Loading {loadingDots}</div>
-  );
-}
-
-function NoChannelsLabel() {
-  return (
-    <div className="m-4 flex w-full items-center gap-2 py-10 text-sm">
-      {chrome.i18n.getMessage("noLiveStreams")}
-      <img src={randomNoChannelImage()} width="24" alt="No channels" />
-    </div>
-  );
-}
-
-function randomNoChannelImage() {
-  const imageFiles = ["../images/no_stream/resident_sleeper.png"];
-  const randomIndex = Math.floor(Math.random() * imageFiles.length);
-  return imageFiles[randomIndex];
-}
-
-function ChannelGrid({ channels }: { channels: KickChannel[] }) {
-  return (
-    <div className="grid grid-cols-2 gap-2">
-      {channels.map((p) => (
-        <Channel channel={p} key={p.channelSlug} />
-      ))}
-    </div>
-  );
+  roots.followingChannels.render(<FollowingChannels refreshDate={new Date()} />);
 }
 
 async function toggleSuspended() {

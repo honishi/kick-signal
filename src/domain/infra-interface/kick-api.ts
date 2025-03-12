@@ -1,5 +1,6 @@
-import { KickChannel } from "../model/kick-channel";
+import { KickChannel, KickChannels } from "../model/kick-channel";
 
 export interface KickApi {
-  getFollowingChannels(liveOnly: boolean): Promise<KickChannel[]>;
+  getLiveChannels(): Promise<KickChannel[]>;
+  getFollowingChannels(offset: number): Promise<KickChannels>;
 }

@@ -1,12 +1,12 @@
 import { KickApi } from "../domain/infra-interface/kick-api";
-import { KickChannel } from "../domain/model/kick-channel";
+import { KickChannel, KickChannels } from "../domain/model/kick-channel";
 import { KickChannelResponse } from "./model/kick-channel-response";
 
 const API_BASE_URL = "https://kick.com";
 const GET_FOLLOWING_CHANNELS_API_URL = `${API_BASE_URL}/api/v2/channels/followed`;
 
 export class KickApiImpl implements KickApi {
-  async getFollowingChannels(liveOnly: boolean): Promise<KickChannel[]> {
+  async getLiveChannels(): Promise<KickChannel[]> {
     const channels: KickChannel[] = [];
     let nextCursor: number | null = null;
     const MAX_PAGES = 10;
@@ -24,12 +24,12 @@ export class KickApiImpl implements KickApi {
       channels.push(
         ...json.channels
           .map((channel: KickChannelResponse) => this.toDomainChannel(channel))
-          .filter((channel: KickChannel) => !liveOnly || channel.isLive),
+          .filter((channel: KickChannel) => channel.isLive),
       );
       const hasOfflineChannels = json.channels.some(
         (channel: KickChannelResponse) => !channel.is_live,
       );
-      if (liveOnly && hasOfflineChannels) {
+      if (hasOfflineChannels) {
         // If offline channels are detected, we can safely exit the loop as no online channels will appear after this point.
         break;
       }
@@ -37,6 +37,22 @@ export class KickApiImpl implements KickApi {
       page++;
     } while (nextCursor && page < MAX_PAGES);
     return channels;
+  }
+
+  async getFollowingChannels(offset: number): Promise<KickChannels> {
+    const url = new URL(GET_FOLLOWING_CHANNELS_API_URL);
+    if (offset > 0) {
+      url.searchParams.append("cursor", offset.toString());
+    }
+    const response = await fetch(url.toString());
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    const json = await response.json();
+    return {
+      next: json.nextCursor,
+      channels: json.channels.map((channel: KickChannelResponse) => this.toDomainChannel(channel)),
+    };
   }
 
   private toDomainChannel(channel: KickChannelResponse): KickChannel {
