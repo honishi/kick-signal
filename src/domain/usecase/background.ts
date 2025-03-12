@@ -77,7 +77,7 @@ export class BackgroundImpl implements Background {
   private async requestChannels(): Promise<void> {
     console.log("Background requestChannels: start", new Date());
 
-    const channels = await this.kickApi.getFollowingChannels(true);
+    const channels = await this.kickApi.getLiveChannels();
     await this.browserApi.setBadgeNumber(channels.length);
     await this.checkChannels(channels);
 
