@@ -43,6 +43,6 @@ export type KickChannel = {
 };
 
 export type KickChannels = {
-	next: number | null;
-	channels: KickChannel[];
+  next: number | null;
+  channels: KickChannel[];
 };

@@ -77,7 +77,7 @@ function ProfileImage(props: { imageUrl?: string; isLive: boolean }) {
       <img
         src={url}
         alt={url}
-        className={`rounded-full ${props.isLive ? "border-2 border-[#6cc740] dark:border-[#87f950]" : "grayscale opacity-50"}`}
+        className={`rounded-full ${props.isLive ? "border-2 border-[#6cc740] dark:border-[#87f950]" : "opacity-50 grayscale"}`}
       />
     </div>
   );
