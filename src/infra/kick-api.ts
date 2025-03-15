@@ -16,10 +16,7 @@ export class KickApiImpl implements KickApi {
       if (nextCursor) {
         url.searchParams.append("cursor", nextCursor.toString());
       }
-      const response = await fetch(url.toString());
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-      }
+      const response = await this.fetchKick(url.toString());
       const json = await response.json();
       channels.push(
         ...json.channels
@@ -44,14 +41,38 @@ export class KickApiImpl implements KickApi {
     if (offset > 0) {
       url.searchParams.append("cursor", offset.toString());
     }
-    const response = await fetch(url.toString());
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
-    }
+    const response = await this.fetchKick(url.toString());
     const json = await response.json();
     return {
       next: json.nextCursor,
       channels: json.channels.map((channel: KickChannelResponse) => this.toDomainChannel(channel)),
+    };
+  }
+
+  private async fetchKick(url: string): Promise<Response> {
+    const response = await fetch(url.toString(), {
+      headers: await this.makeRequestHeader(),
+      redirect: 'error',
+    });
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    return response;
+  }
+
+  private async makeRequestHeader(): Promise<Record<string, string>> {
+    const sessionTokenCookies = await chrome.cookies.getAll({
+      domain: "kick.com",
+      name: "session_token",
+    });
+    // console.log("cookies", sessionTokenCookies);
+    if (sessionTokenCookies.length === 0) {
+      return {};
+    }
+    const decodedValue = decodeURIComponent(sessionTokenCookies[0].value);
+    // console.log("decoded session_token", decodedValue);
+    return {
+      Authorization: "Bearer " + decodedValue,
     };
   }
 

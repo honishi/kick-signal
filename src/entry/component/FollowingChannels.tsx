@@ -8,26 +8,37 @@ import Channel from "./Channel";
 
 export function FollowingChannels(props: { refreshDate: Date }) {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [channels, setChannels] = useState<KickChannel[]>([]);
 
   useEffect(() => {
     const fetchChannels = async () => {
       setChannels([]);
       setLoading(true);
-      const popup = container.resolve<Popup>(InjectTokens.Popup);
-      let offset: number | null = 0;
-      const MAX_PAGES = 100;
-      let page = 0;
-      do {
-        const channels = await popup.getFollowingChannels(offset);
-        setChannels((prevChannels) => [...prevChannels, ...channels.channels]);
-        offset = channels.next;
-        page++;
-      } while (offset && page < MAX_PAGES);
-      setLoading(false);
+      setError(false);
+      try {
+        const popup = container.resolve<Popup>(InjectTokens.Popup);
+        let offset: number | null = 0;
+        const MAX_PAGES = 100;
+        let page = 0;
+        do {
+          const channels = await popup.getFollowingChannels(offset);
+          setChannels((prevChannels) => [...prevChannels, ...channels.channels]);
+          offset = channels.next;
+          page++;
+        } while (offset && page < MAX_PAGES);
+      } catch (e) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchChannels();
   }, [props.refreshDate]);
+
+  if (error) {
+    return <ErrorLabel />;
+  }
 
   if (!loading && channels.length === 0) {
     return <NoChannelsLabel />;
@@ -55,6 +66,14 @@ function LoadingLabel() {
   const loadingDots = ".".repeat(dots);
   return (
     <div className="m-4 flex w-full items-center gap-2 py-2 text-sm">Loading {loadingDots}</div>
+  );
+}
+
+function ErrorLabel() {
+  return (
+    <div className="m-4 flex w-full items-center gap-2 py-10 text-sm">
+      {chrome.i18n.getMessage("fetchError")}
+    </div>
   );
 }
 
