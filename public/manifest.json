@@ -12,7 +12,8 @@
     "storage",
     "offscreen",
     "notifications",
-    "declarativeNetRequestWithHostAccess"
+    "declarativeNetRequestWithHostAccess",
+    "cookies"
   ],
   "host_permissions": [
     "https://kick.com/*"
