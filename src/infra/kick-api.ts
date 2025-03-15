@@ -52,7 +52,7 @@ export class KickApiImpl implements KickApi {
   private async fetchKick(url: string): Promise<Response> {
     const response = await fetch(url.toString(), {
       headers: await this.makeRequestHeader(),
-      redirect: 'error',
+      redirect: "error",
     });
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
