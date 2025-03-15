@@ -49,5 +49,8 @@
   },
   "testSoundVolume": {
     "message": "[テスト]"
+  },
+  "fetchError": {
+    "message": "チャンネルの読み込みに失敗しました。Kick にログインしていることを確認してから、もう一度試してください。"
   }
 }

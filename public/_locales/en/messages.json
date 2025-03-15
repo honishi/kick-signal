@@ -49,5 +49,8 @@
   },
   "testSoundVolume": {
     "message": "[Test]"
+  },
+  "fetchError": {
+    "message": "Failed to load channels. Please check that you are logged in to Kick and try again."
   }
 }
