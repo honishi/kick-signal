@@ -83,7 +83,7 @@ function ProfileImage(props: { imageUrl?: string; isLive: boolean }) {
       <img
         src={url}
         alt={url}
-        className={`h-full w-full rounded-full object-cover ${props.isLive ? "border-2 border-[#6cc740] dark:border-[#87f950]" : "opacity-50 grayscale"}`}
+        className={`h-full w-full rounded-full object-cover ${props.isLive ? "border-kick-green-for-light dark:border-kick-green-for-dark border-2" : "opacity-50 grayscale"}`}
       />
     </div>
   );
@@ -105,7 +105,7 @@ function UserName(props: { userName: string; isLive: boolean; viewerCount: numbe
       <span className="mr-1 flex-1">{props.userName}</span>
       {props.isLive && (
         <div className="mr-2 flex items-center">
-          <div className="mr-1 h-2 w-2 rounded-full bg-[#6cc740] dark:bg-[#87f950]"></div>
+          <div className="bg-kick-green-for-light dark:bg-kick-green-for-dark mr-1 h-2 w-2 rounded-full"></div>
           <span className="text-xs text-gray-500">{props.viewerCount.toLocaleString()}</span>
         </div>
       )}
