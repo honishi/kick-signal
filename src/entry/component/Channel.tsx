@@ -6,6 +6,13 @@ import { InjectTokens } from "../../di/inject-tokens";
 import { KickChannel } from "../../domain/model/kick-channel";
 import { Popup } from "../../domain/usecase/popup";
 
+const COLORS = {
+  GREEN: {
+    LIGHT: "#6cc740",
+    DARK: "#87f950",
+  },
+} as const;
+
 const gridItemWidth = 240;
 
 export default function Channel(props: { channel: KickChannel }) {
@@ -36,20 +43,26 @@ export default function Channel(props: { channel: KickChannel }) {
 
   return (
     <div className="flex h-16 items-center justify-between pr-8">
-      <a href="" onClick={onClick} className="block transition-transform hover:scale-[1.03]">
+      <a href="" onClick={onClick} className="block w-full transition-transform hover:scale-[1.03]">
         {/* Channel info */}
         <div
           className="flex items-center overflow-hidden"
           style={{ maxWidth: `${gridItemWidth}px` }}
         >
-          <ProfileImage
-            imageUrl={props.channel.profilePicture ?? undefined}
-            isLive={props.channel.isLive}
-          />
+          <div className="flex-1">
+            <ProfileImage
+              imageUrl={props.channel.profilePicture ?? undefined}
+              isLive={props.channel.isLive}
+            />
+          </div>
           {/* Channel text */}
-          <div className="ml-4 flex min-w-0 flex-col">
+          <div className="ml-4 flex w-full flex-col">
             <Title title={props.channel.sessionTitle ?? ""} />
-            <UserName userName={props.channel.userUsername} isLive={props.channel.isLive} />
+            <UserName
+              userName={props.channel.userUsername}
+              isLive={props.channel.isLive}
+              viewerCount={props.channel.viewerCount}
+            />
           </div>
         </div>
       </a>
@@ -73,11 +86,11 @@ export default function Channel(props: { channel: KickChannel }) {
 function ProfileImage(props: { imageUrl?: string; isLive: boolean }) {
   const url = props.imageUrl ?? "../images/default-profile-pictures/default.jpeg";
   return (
-    <div className="w-10 min-w-10">
+    <div className="h-10 w-10">
       <img
         src={url}
         alt={url}
-        className={`rounded-full ${props.isLive ? "border-2 border-[#6cc740] dark:border-[#87f950]" : "opacity-50 grayscale"}`}
+        className={`h-full w-full rounded-full object-cover ${props.isLive ? `border-2 border-[${COLORS.GREEN.LIGHT}] dark:border-[${COLORS.GREEN.DARK}]` : "opacity-50 grayscale"}`}
       />
     </div>
   );
@@ -85,16 +98,26 @@ function ProfileImage(props: { imageUrl?: string; isLive: boolean }) {
 
 function Title(props: { title: string }) {
   return (
-    <div className="line-clamp-2 overflow-hidden text-sm break-words text-ellipsis">
+    <div className="line-clamp-1 overflow-hidden text-sm break-words text-ellipsis">
       {props.title}
     </div>
   );
 }
 
-function UserName(props: { userName: string; isLive: boolean }) {
+function UserName(props: { userName: string; isLive: boolean; viewerCount: number }) {
   return (
-    <div className={`text-sm ${props.isLive ? "" : "text-opacity-80 text-gray-500"}`}>
-      {props.userName}
+    <div
+      className={`flex items-center text-sm ${props.isLive ? "" : "text-opacity-80 text-gray-500"}`}
+    >
+      <span className="mr-1 flex-1">{props.userName}</span>
+      {props.isLive && (
+        <div className="mr-2 flex items-center">
+          <div
+            className={`mr-1 h-2 w-2 rounded-full bg-[${COLORS.GREEN.LIGHT}] dark:bg-[${COLORS.GREEN.DARK}]`}
+          ></div>
+          <span className="text-xs text-gray-500">{props.viewerCount.toLocaleString()}</span>
+        </div>
+      )}
     </div>
   );
 }
