@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Switch from "react-switch";
+import { twMerge } from "tailwind-merge";
 import { container } from "tsyringe";
 
 import { InjectTokens } from "../../di/inject-tokens";
@@ -81,11 +82,11 @@ export default function Channel(props: { channel: KickChannel }) {
 function ProfileImage(props: { imageUrl?: string; isLive: boolean; className?: string }) {
   const url = props.imageUrl ?? "../images/default-profile-pictures/default.jpeg";
   return (
-    <div className="h-10 w-10">
+    <div className={twMerge("h-10 w-10", props.className)}>
       <img
         src={url}
         alt={url}
-        className={`h-full w-full rounded-full object-cover ${props.isLive ? "border-kick-green-for-light dark:border-kick-green-for-dark border-2" : "opacity-50 grayscale"} ${props.className}`}
+        className={`h-full w-full rounded-full object-cover ${props.isLive ? "border-kick-green-for-light dark:border-kick-green-for-dark border-2" : "opacity-50 grayscale"}`}
       />
     </div>
   );
@@ -94,7 +95,10 @@ function ProfileImage(props: { imageUrl?: string; isLive: boolean; className?: s
 function Title(props: { title: string; className?: string }) {
   return (
     <div
-      className={`line-clamp-1 overflow-hidden text-sm break-words text-ellipsis ${props.className}`}
+      className={twMerge(
+        "line-clamp-1 overflow-hidden text-sm break-words text-ellipsis",
+        props.className,
+      )}
     >
       {props.title}
     </div>
@@ -104,7 +108,10 @@ function Title(props: { title: string; className?: string }) {
 function UserName(props: { userName: string; isLive: boolean; className?: string }) {
   return (
     <div
-      className={`line-clamp-1 overflow-hidden text-sm break-words text-ellipsis ${props.isLive ? "" : "text-opacity-80 text-gray-500"} ${props.className}`}
+      className={twMerge(
+        `line-clamp-1 overflow-hidden text-sm break-words text-ellipsis ${props.isLive ? "" : "text-opacity-80 text-gray-500"}`,
+        props.className,
+      )}
     >
       {props.userName}
     </div>
@@ -121,7 +128,7 @@ function CategoryViewerCount(props: {
     return null;
   }
   return (
-    <div className={`flex items-center justify-between text-xs ${props.className} mr-2`}>
+    <div className={twMerge("mr-2 flex items-center justify-between text-xs", props.className)}>
       <div className="inline-block truncate rounded bg-black/10 px-2 py-0.5 text-xs text-black dark:bg-white/10 dark:text-white">
         {props.category}
       </div>
