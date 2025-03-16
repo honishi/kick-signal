@@ -40,17 +40,17 @@ export default function Channel(props: { channel: KickChannel }) {
       <a href="" onClick={onClick} className="block w-full transition-transform hover:scale-[1.03]">
         {/* Channel info */}
         <div
-          className="flex items-center overflow-hidden"
+          className="flex min-w-0 items-center overflow-hidden"
           style={{ maxWidth: `${gridItemWidth}px` }}
         >
-          <div className="flex-1">
+          <div className="flex-none">
             <ProfileImage
               imageUrl={props.channel.profilePicture ?? undefined}
               isLive={props.channel.isLive}
             />
           </div>
           {/* Channel text */}
-          <div className="ml-4 flex w-full flex-col">
+          <div className="ml-4 flex min-w-0 flex-1 flex-col">
             <Title title={props.channel.sessionTitle ?? ""} />
             <UserName userName={props.channel.userUsername} isLive={props.channel.isLive} />
             <CategoryViewerCount
@@ -127,12 +127,16 @@ function CategoryViewerCount(props: {
   if (!props.isLive) {
     return null;
   }
+
   return (
-    <div className={twMerge("mr-2 flex items-center justify-between text-xs", props.className)}>
-      <div className="inline-block truncate rounded bg-black/10 px-2 py-0.5 text-xs text-black dark:bg-white/10 dark:text-white">
+    <div
+      className={twMerge("mr-2 flex min-w-0 items-center justify-between text-xs", props.className)}
+    >
+      <div className="inline-block truncate overflow-hidden rounded bg-black/10 px-2 py-0.5 text-xs text-ellipsis whitespace-nowrap text-black dark:bg-white/10 dark:text-white">
         {props.category}
       </div>
-      <div className="flex shrink-0 items-center">
+
+      <div className="ml-2 flex shrink-0 items-center">
         <div className="bg-kick-green-for-light dark:bg-kick-green-for-dark mr-1 h-2 w-2 rounded-full"></div>
         <span className="text-xs text-gray-500">{props.viewerCount.toLocaleString()}</span>
       </div>
