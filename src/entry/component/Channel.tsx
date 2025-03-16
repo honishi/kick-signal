@@ -39,10 +39,7 @@ export default function Channel(props: { channel: KickChannel }) {
     <div className="flex h-16 items-center justify-between pr-8">
       <a href="" onClick={onClick} className="block w-full transition-transform hover:scale-[1.03]">
         {/* Channel info */}
-        <div
-          className="flex min-w-0 items-center overflow-hidden"
-          style={{ maxWidth: `${gridItemWidth}px` }}
-        >
+        <div className="flex min-w-0 items-center" style={{ maxWidth: `${gridItemWidth}px` }}>
           <div className="flex-none">
             <ProfileImage
               imageUrl={props.channel.profilePicture ?? undefined}
@@ -94,12 +91,7 @@ function ProfileImage(props: { imageUrl?: string; isLive: boolean; className?: s
 
 function Title(props: { title: string; className?: string }) {
   return (
-    <div
-      className={twMerge(
-        "line-clamp-1 overflow-hidden text-sm break-words text-ellipsis",
-        props.className,
-      )}
-    >
+    <div className={twMerge("line-clamp-1 text-sm break-words", props.className)}>
       {props.title}
     </div>
   );
@@ -109,7 +101,7 @@ function UserName(props: { userName: string; isLive: boolean; className?: string
   return (
     <div
       className={twMerge(
-        `line-clamp-1 overflow-hidden text-sm break-words text-ellipsis ${props.isLive ? "" : "text-opacity-80 text-gray-500"}`,
+        `line-clamp-1 text-sm break-words ${props.isLive ? "" : "text-opacity-80 text-gray-500"}`,
         props.className,
       )}
     >
@@ -129,16 +121,14 @@ function CategoryViewerCount(props: {
   }
 
   return (
-    <div
-      className={twMerge("mr-2 flex min-w-0 items-center justify-between text-xs", props.className)}
-    >
-      <div className="inline-block truncate overflow-hidden rounded bg-black/10 px-2 py-0.5 text-xs text-ellipsis whitespace-nowrap text-black dark:bg-white/10 dark:text-white">
+    <div className={twMerge("flex items-center justify-between text-xs", props.className)}>
+      <div className="truncate rounded bg-black/10 px-2 py-0.5 text-black dark:bg-white/10 dark:text-white">
         {props.category}
       </div>
 
-      <div className="ml-2 flex shrink-0 items-center">
+      <div className="ml-2 flex items-center">
         <div className="bg-kick-green-for-light dark:bg-kick-green-for-dark mr-1 h-2 w-2 rounded-full"></div>
-        <span className="text-xs text-gray-500">{props.viewerCount.toLocaleString()}</span>
+        <span className="text-gray-500">{props.viewerCount.toLocaleString()}</span>
       </div>
     </div>
   );
