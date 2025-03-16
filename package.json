@@ -13,7 +13,6 @@
   "license": "MIT",
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.6",
-    "node-fetch": "^3.3.2",
     "postcss": "^8.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
