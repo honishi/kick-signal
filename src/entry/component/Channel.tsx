@@ -73,11 +73,11 @@ export default function Channel(props: { channel: KickChannel }) {
 function ProfileImage(props: { imageUrl?: string; isLive: boolean }) {
   const url = props.imageUrl ?? "../images/default-profile-pictures/default.jpeg";
   return (
-    <div className="w-10 min-w-10">
+    <div className="h-10 w-10">
       <img
         src={url}
         alt={url}
-        className={`rounded-full ${props.isLive ? "border-2 border-[#6cc740] dark:border-[#87f950]" : "opacity-50 grayscale"}`}
+        className={`h-full w-full rounded-full object-cover ${props.isLive ? "border-2 border-[#6cc740] dark:border-[#87f950]" : "opacity-50 grayscale"}`}
       />
     </div>
   );
