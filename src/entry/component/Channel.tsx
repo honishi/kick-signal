@@ -51,10 +51,12 @@ export default function Channel(props: { channel: KickChannel }) {
           {/* Channel text */}
           <div className="ml-4 flex w-full flex-col">
             <Title title={props.channel.sessionTitle ?? ""} />
-            <UserName
-              userName={props.channel.userUsername}
-              isLive={props.channel.isLive}
+            <UserName userName={props.channel.userUsername} isLive={props.channel.isLive} />
+            <CategoryViewerCount
+              category={props.channel.categoryName}
               viewerCount={props.channel.viewerCount}
+              isLive={props.channel.isLive}
+              className="mt-1"
             />
           </div>
         </div>
@@ -76,39 +78,57 @@ export default function Channel(props: { channel: KickChannel }) {
   );
 }
 
-function ProfileImage(props: { imageUrl?: string; isLive: boolean }) {
+function ProfileImage(props: { imageUrl?: string; isLive: boolean; className?: string }) {
   const url = props.imageUrl ?? "../images/default-profile-pictures/default.jpeg";
   return (
     <div className="h-10 w-10">
       <img
         src={url}
         alt={url}
-        className={`h-full w-full rounded-full object-cover ${props.isLive ? "border-kick-green-for-light dark:border-kick-green-for-dark border-2" : "opacity-50 grayscale"}`}
+        className={`h-full w-full rounded-full object-cover ${props.isLive ? "border-kick-green-for-light dark:border-kick-green-for-dark border-2" : "opacity-50 grayscale"} ${props.className}`}
       />
     </div>
   );
 }
 
-function Title(props: { title: string }) {
+function Title(props: { title: string; className?: string }) {
   return (
-    <div className="line-clamp-1 overflow-hidden text-sm break-words text-ellipsis">
+    <div
+      className={`line-clamp-1 overflow-hidden text-sm break-words text-ellipsis ${props.className}`}
+    >
       {props.title}
     </div>
   );
 }
 
-function UserName(props: { userName: string; isLive: boolean; viewerCount: number }) {
+function UserName(props: { userName: string; isLive: boolean; className?: string }) {
   return (
     <div
-      className={`flex items-center text-sm ${props.isLive ? "" : "text-opacity-80 text-gray-500"}`}
+      className={`line-clamp-1 overflow-hidden text-sm break-words text-ellipsis ${props.isLive ? "" : "text-opacity-80 text-gray-500"} ${props.className}`}
     >
-      <span className="mr-1 flex-1">{props.userName}</span>
-      {props.isLive && (
-        <div className="mr-2 flex items-center">
-          <div className="bg-kick-green-for-light dark:bg-kick-green-for-dark mr-1 h-2 w-2 rounded-full"></div>
-          <span className="text-xs text-gray-500">{props.viewerCount.toLocaleString()}</span>
-        </div>
-      )}
+      {props.userName}
+    </div>
+  );
+}
+
+function CategoryViewerCount(props: {
+  category: string;
+  viewerCount: number;
+  isLive: boolean;
+  className?: string;
+}) {
+  if (!props.isLive) {
+    return null;
+  }
+  return (
+    <div className={`flex items-center justify-between text-xs ${props.className} mr-2`}>
+      <div className="inline-block truncate rounded bg-black/10 px-2 py-0.5 text-xs text-black dark:bg-white/10 dark:text-white">
+        {props.category}
+      </div>
+      <div className="flex shrink-0 items-center">
+        <div className="bg-kick-green-for-light dark:bg-kick-green-for-dark mr-1 h-2 w-2 rounded-full"></div>
+        <span className="text-xs text-gray-500">{props.viewerCount.toLocaleString()}</span>
+      </div>
     </div>
   );
 }
