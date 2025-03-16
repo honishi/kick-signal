@@ -9,7 +9,7 @@ import { Popup } from "../../domain/usecase/popup";
 
 const gridItemWidth = 240;
 
-export default function Channel(props: { channel: KickChannel }) {
+export default function Channel(props: { channel: KickChannel; className?: string }) {
   const popup = container.resolve<Popup>(InjectTokens.Popup);
 
   const onClick = async function () {
@@ -36,7 +36,7 @@ export default function Channel(props: { channel: KickChannel }) {
   }
 
   return (
-    <div className="flex h-16 items-center justify-between pr-8">
+    <div className={twMerge("flex h-16 items-center justify-between pr-8", props.className)}>
       <a href="" onClick={onClick} className="block w-full transition-transform hover:scale-[1.03]">
         {/* Channel info */}
         <div className="flex min-w-0 items-center" style={{ maxWidth: `${gridItemWidth}px` }}>
@@ -59,6 +59,7 @@ export default function Channel(props: { channel: KickChannel }) {
           </div>
         </div>
       </a>
+      <div className="w-2"></div>
       <Switch
         checked={isChecked}
         onChange={handleChange}
