@@ -96,7 +96,7 @@ function ChannelGrid({ channels }: { channels: KickChannel[] }) {
   return (
     <div className="grid grid-cols-2 gap-2">
       {channels.map((p) => (
-        <Channel channel={p} key={p.channelSlug} />
+        <Channel channel={p} key={p.channelSlug} className={p.isLive ? "mb-2" : ""} />
       ))}
     </div>
   );

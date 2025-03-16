@@ -3,4 +3,6 @@
 @theme {
   --color-white: #f0f0f0;
   --color-black: #101010;
+  --color-kick-green-for-light: #6cc740;
+  --color-kick-green-for-dark: #87f950;
 }
