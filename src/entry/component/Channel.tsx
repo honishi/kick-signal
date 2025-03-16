@@ -6,13 +6,6 @@ import { InjectTokens } from "../../di/inject-tokens";
 import { KickChannel } from "../../domain/model/kick-channel";
 import { Popup } from "../../domain/usecase/popup";
 
-const COLORS = {
-  GREEN: {
-    LIGHT: "#6cc740",
-    DARK: "#87f950",
-  },
-} as const;
-
 const gridItemWidth = 240;
 
 export default function Channel(props: { channel: KickChannel }) {
@@ -90,7 +83,7 @@ function ProfileImage(props: { imageUrl?: string; isLive: boolean }) {
       <img
         src={url}
         alt={url}
-        className={`h-full w-full rounded-full object-cover ${props.isLive ? `border-2 border-[${COLORS.GREEN.LIGHT}] dark:border-[${COLORS.GREEN.DARK}]` : "opacity-50 grayscale"}`}
+        className={`h-full w-full rounded-full object-cover ${props.isLive ? "border-2 border-[#6cc740] dark:border-[#87f950]" : "opacity-50 grayscale"}`}
       />
     </div>
   );
@@ -112,9 +105,7 @@ function UserName(props: { userName: string; isLive: boolean; viewerCount: numbe
       <span className="mr-1 flex-1">{props.userName}</span>
       {props.isLive && (
         <div className="mr-2 flex items-center">
-          <div
-            className={`mr-1 h-2 w-2 rounded-full bg-[${COLORS.GREEN.LIGHT}] dark:bg-[${COLORS.GREEN.DARK}]`}
-          ></div>
+          <div className="mr-1 h-2 w-2 rounded-full bg-[#6cc740] dark:bg-[#87f950]"></div>
           <span className="text-xs text-gray-500">{props.viewerCount.toLocaleString()}</span>
         </div>
       )}
