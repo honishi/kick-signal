@@ -5,7 +5,7 @@ import { BrowserApi } from "../infra-interface/browser-api";
 import { KickApi } from "../infra-interface/kick-api";
 import { KickChannel } from "../model/kick-channel";
 import { SoundType } from "../model/sound-type";
-import { defaultBadgeBackgroundColor } from "./colors";
+import { defaultBadgeBackgroundColor, suspendedBadgeBackgroundColor } from "./colors";
 
 const RUN_INTERVAL = 1000 * 60; // 1 minute
 const DELAY_AFTER_OPEN = 1000 * 5; // 5 seconds
@@ -34,8 +34,13 @@ export class BackgroundImpl implements Background {
   }
 
   async resetSuspended(): Promise<void> {
-    await this.browserApi.setSuspendFromDate(undefined);
-    await this.browserApi.setBadgeBackgroundColor(defaultBadgeBackgroundColor);
+    if (await this.browserApi.getResetSuspendOnRestart()) {
+      await this.browserApi.setSuspendFromDate(undefined);
+    }
+    const isSuspended = (await this.browserApi.getSuspendFromDate()) !== undefined;
+    await this.browserApi.setBadgeBackgroundColor(
+      isSuspended ? suspendedBadgeBackgroundColor : defaultBadgeBackgroundColor,
+    );
   }
 
   async run(): Promise<void> {
