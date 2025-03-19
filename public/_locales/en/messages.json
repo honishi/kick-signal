@@ -35,6 +35,9 @@
   "autoLaunchSettings": {
     "message": "Auto-Launch Settings"
   },
+  "resetSuspendOnRestartCheckbox": {
+    "message": "Reset auto-launch settings to On when browser restarts"
+  },
   "autoUnmuteCheckbox": {
     "message": "Automatically unmute player after auto-launch"
   },

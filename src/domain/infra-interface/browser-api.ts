@@ -22,6 +22,8 @@ export interface BrowserApi {
   getTabUrls(): Promise<string[]>;
   setSuspendFromDate(date: Date | undefined): Promise<void>;
   getSuspendFromDate(): Promise<Date | undefined>;
+  getResetSuspendOnRestart(): Promise<boolean>;
+  setResetSuspendOnRestart(enabled: boolean): Promise<void>;
   isDuplicateTabGuard(): Promise<boolean>;
   setDuplicateTabGuard(duplicateTabGuard: boolean): Promise<void>;
   openOptionsPage(): void;
