@@ -39,6 +39,8 @@ describe("OptionImpl", () => {
       getTabUrls: jest.fn().mockResolvedValue([]),
       setSuspendFromDate: jest.fn().mockResolvedValue(undefined),
       getSuspendFromDate: jest.fn().mockResolvedValue(undefined),
+      getResetSuspendOnRestart: jest.fn().mockResolvedValue(false),
+      setResetSuspendOnRestart: jest.fn().mockResolvedValue(undefined),
       isDuplicateTabGuard: jest.fn().mockResolvedValue(false),
       setDuplicateTabGuard: jest.fn().mockResolvedValue(undefined),
       openOptionsPage: jest.fn(),

@@ -6,6 +6,8 @@ import { KickApi } from "../infra-interface/kick-api";
 import { SoundType } from "../model/sound-type";
 
 export interface Option {
+  getResetSuspendOnRestart(): Promise<boolean>;
+  setResetSuspendOnRestart(value: boolean): Promise<void>;
   getAutoUnmute(): Promise<boolean>;
   setAutoUnmute(value: boolean): Promise<void>;
   getShowNotification(): Promise<boolean>;
@@ -21,6 +23,14 @@ export class OptionImpl implements Option {
     @inject(InjectTokens.BrowserApi) private browserApi: BrowserApi,
     @inject(InjectTokens.KickApi) private kickApi: KickApi,
   ) {}
+
+  async getResetSuspendOnRestart(): Promise<boolean> {
+    return await this.browserApi.getResetSuspendOnRestart();
+  }
+
+  async setResetSuspendOnRestart(value: boolean): Promise<void> {
+    await this.browserApi.setResetSuspendOnRestart(value);
+  }
 
   async getAutoUnmute(): Promise<boolean> {
     return await this.browserApi.getAutoUnmute();

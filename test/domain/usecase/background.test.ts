@@ -65,6 +65,8 @@ describe("BackgroundImpl", () => {
       getTabUrls: jest.fn().mockResolvedValue([]),
       setSuspendFromDate: jest.fn().mockResolvedValue(undefined),
       getSuspendFromDate: jest.fn().mockResolvedValue(undefined),
+      getResetSuspendOnRestart: jest.fn().mockResolvedValue(false),
+      setResetSuspendOnRestart: jest.fn().mockResolvedValue(undefined),
       isDuplicateTabGuard: jest.fn().mockResolvedValue(false),
       setDuplicateTabGuard: jest.fn().mockResolvedValue(undefined),
       openOptionsPage: jest.fn(),
@@ -90,7 +92,13 @@ describe("BackgroundImpl", () => {
 
   describe("initialize", () => {
     it("should reset suspended state on initialization", async () => {
-      // The constructor calls initialize, so we can verify it was called
+      // Set up test conditions: resetSuspendOnRestart is true
+      mockBrowserApi.getResetSuspendOnRestart.mockResolvedValueOnce(true);
+      
+      // Call initialize directly
+      await background.initialize();
+      
+      // Now verify the expected behavior
       expect(mockBrowserApi.setSuspendFromDate).toHaveBeenCalledWith(undefined);
       expect(mockBrowserApi.setBadgeBackgroundColor).toHaveBeenCalledWith(defaultBadgeBackgroundColor);
     });

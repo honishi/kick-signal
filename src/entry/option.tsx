@@ -8,20 +8,48 @@ import { configureDefaultContainer } from "../di/register";
 import { Option } from "../domain/usecase/option";
 
 async function renderPage() {
-  // await renderAutoLaunchSettingsTitle();
+  await renderAutoLaunchSettingsTitle();
+  await renderResetSuspendOnRestartCheckbox();
   // await renderAutoUnmuteCheckbox();
   await renderNotificationSettingsTitle();
   await renderShowNotificationCheckbox();
   await renderSoundVolume();
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function renderAutoLaunchSettingsTitle() {
   const autoLaunchSettingsSpan = document.getElementById(
     "auto-launch-settings-span",
   ) as HTMLSpanElement;
   const autoLaunchSettingsText = chrome.i18n.getMessage("autoLaunchSettings");
   autoLaunchSettingsSpan.textContent = autoLaunchSettingsText;
+}
+
+async function renderResetSuspendOnRestartCheckbox() {
+  const resetSuspendOnRestartCheckbox = document.getElementById(
+    "reset-suspend-on-restart-checkbox",
+  ) as HTMLInputElement;
+  resetSuspendOnRestartCheckbox.checked = await getResetSuspendOnRestart();
+  resetSuspendOnRestartCheckbox.addEventListener("change", async () => {
+    const checked = resetSuspendOnRestartCheckbox.checked;
+    await setResetSuspendOnRestart(checked);
+  });
+  const resetSuspendOnRestartLabel = document.getElementById(
+    "reset-suspend-on-restart-label",
+  ) as HTMLLabelElement;
+  const resetSuspendOnRestartCheckboxText = chrome.i18n.getMessage(
+    "resetSuspendOnRestartCheckbox",
+  );
+  resetSuspendOnRestartLabel.textContent = resetSuspendOnRestartCheckboxText;
+}
+
+async function getResetSuspendOnRestart(): Promise<boolean> {
+  const option = container.resolve<Option>(InjectTokens.Option);
+  return await option.getResetSuspendOnRestart();
+}
+
+async function setResetSuspendOnRestart(value: boolean): Promise<void> {
+  const option = container.resolve<Option>(InjectTokens.Option);
+  await option.setResetSuspendOnRestart(value);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

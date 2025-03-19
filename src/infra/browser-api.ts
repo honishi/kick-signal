@@ -5,6 +5,7 @@ import { ChromeMessage, ChromeMessageType } from "./chrome_message/message";
 const SHOW_NOTIFICATION_KEY = "showNotification";
 const SOUND_VOLUME_KEY = "soundVolume";
 const SUSPEND_FROM_DATE_KEY = "suspendFromDate";
+const RESET_SUSPEND_ON_RESTART_KEY = "resetSuspendOnRestart";
 const DUPLICATE_TAB_GUARD_KEY = "duplicateTabGuard";
 const AUTO_OPEN_CHANNELS_KEY = "autoOpenChannels";
 const AUTO_UNMUTE_KEY = "autoUnmute";
@@ -151,6 +152,15 @@ export class BrowserApiImpl implements BrowserApi {
       return undefined;
     }
     return new Date(date);
+  }
+
+  async getResetSuspendOnRestart(): Promise<boolean> {
+    const result = await chrome.storage.local.get([RESET_SUSPEND_ON_RESTART_KEY]);
+    return result[RESET_SUSPEND_ON_RESTART_KEY] ?? true;
+  }
+
+  async setResetSuspendOnRestart(enabled: boolean): Promise<void> {
+    await chrome.storage.local.set({ [RESET_SUSPEND_ON_RESTART_KEY]: enabled });
   }
 
   async isDuplicateTabGuard(): Promise<boolean> {

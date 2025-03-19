@@ -35,6 +35,9 @@
   "autoLaunchSettings": {
     "message": "自動入場設定"
   },
+  "resetSuspendOnRestartCheckbox": {
+    "message": "ブラウザ再起動時に自動入場設定を On に戻す"
+  },
   "autoUnmuteCheckbox": {
     "message": "自動入場後にミュートを自動解除する"
   },
