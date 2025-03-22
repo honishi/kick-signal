@@ -15,10 +15,8 @@
     "declarativeNetRequestWithHostAccess",
     "cookies"
   ],
-  "host_permissions": [
-    "https://kick.com/*"
-  ],
-   "declarative_net_request": {
+  "host_permissions": ["https://kick.com/*"],
+  "declarative_net_request": {
     "rule_resources": [
       {
         "id": "ruleset_1",
