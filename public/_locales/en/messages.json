@@ -39,7 +39,7 @@
     "message": "Reset auto-launch settings to On when browser restarts"
   },
   "autoUnmuteCheckbox": {
-    "message": "Automatically unmute player after auto-launch"
+    "message": "Automatically unmute player after auto-launch<br />(Note: Not visually reflected in the volume slider)"
   },
   "notificationSettings": {
     "message": "Notification Settings"

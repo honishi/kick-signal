@@ -25,6 +25,12 @@
       }
     ]
   },
+  "content_scripts": [
+    {
+      "js": ["./content.js"],
+      "matches": ["https://kick.com/*"]
+    }
+  ],
   "background": {
     "service_worker": "./background.js"
   },
