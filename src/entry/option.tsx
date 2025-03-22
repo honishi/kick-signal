@@ -9,8 +9,8 @@ import { Option } from "../domain/usecase/option";
 
 async function renderPage() {
   await renderAutoLaunchSettingsTitle();
+  await renderAutoUnmuteCheckbox();
   await renderResetSuspendOnRestartCheckbox();
-  // await renderAutoUnmuteCheckbox();
   await renderNotificationSettingsTitle();
   await renderShowNotificationCheckbox();
   await renderSoundVolume();
@@ -22,6 +22,28 @@ async function renderAutoLaunchSettingsTitle() {
   ) as HTMLSpanElement;
   const autoLaunchSettingsText = chrome.i18n.getMessage("autoLaunchSettings");
   autoLaunchSettingsSpan.textContent = autoLaunchSettingsText;
+}
+
+async function renderAutoUnmuteCheckbox() {
+  const autoUnmuteCheckbox = document.getElementById("auto-unmute-checkbox") as HTMLInputElement;
+  autoUnmuteCheckbox.checked = await getAutoUnmute();
+  autoUnmuteCheckbox.addEventListener("change", async () => {
+    const checked = autoUnmuteCheckbox.checked;
+    await setAutoUnmute(checked);
+  });
+  const autoUnmuteLabel = document.getElementById("auto-unmute-label") as HTMLLabelElement;
+  const autoUnmuteCheckboxText = chrome.i18n.getMessage("autoUnmuteCheckbox");
+  autoUnmuteLabel.innerHTML = autoUnmuteCheckboxText;
+}
+
+async function getAutoUnmute(): Promise<boolean> {
+  const option = container.resolve<Option>(InjectTokens.Option);
+  return await option.getAutoUnmute();
+}
+
+async function setAutoUnmute(value: boolean): Promise<void> {
+  const option = container.resolve<Option>(InjectTokens.Option);
+  await option.setAutoUnmute(value);
 }
 
 async function renderResetSuspendOnRestartCheckbox() {
@@ -50,29 +72,6 @@ async function getResetSuspendOnRestart(): Promise<boolean> {
 async function setResetSuspendOnRestart(value: boolean): Promise<void> {
   const option = container.resolve<Option>(InjectTokens.Option);
   await option.setResetSuspendOnRestart(value);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-async function renderAutoUnmuteCheckbox() {
-  const autoUnmuteCheckbox = document.getElementById("auto-unmute-checkbox") as HTMLInputElement;
-  autoUnmuteCheckbox.checked = await getAutoUnmute();
-  autoUnmuteCheckbox.addEventListener("change", async () => {
-    const checked = autoUnmuteCheckbox.checked;
-    await setAutoUnmute(checked);
-  });
-  const autoUnmuteLabel = document.getElementById("auto-unmute-label") as HTMLLabelElement;
-  const autoUnmuteCheckboxText = chrome.i18n.getMessage("autoUnmuteCheckbox");
-  autoUnmuteLabel.textContent = autoUnmuteCheckboxText;
-}
-
-async function getAutoUnmute(): Promise<boolean> {
-  const option = container.resolve<Option>(InjectTokens.Option);
-  return await option.getAutoUnmute();
-}
-
-async function setAutoUnmute(value: boolean): Promise<void> {
-  const option = container.resolve<Option>(InjectTokens.Option);
-  await option.setAutoUnmute(value);
 }
 
 async function renderNotificationSettingsTitle() {

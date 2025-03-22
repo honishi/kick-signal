@@ -39,7 +39,7 @@
     "message": "ブラウザ再起動時に自動入場設定を On に戻す"
   },
   "autoUnmuteCheckbox": {
-    "message": "自動入場後にミュートを自動解除する"
+    "message": "自動入場後にミュートを自動解除する<br />(注意: 音量スライダーには表示上は反映されません)"
   },
   "notificationSettings": {
     "message": "通知設定"

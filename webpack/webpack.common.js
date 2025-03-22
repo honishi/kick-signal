@@ -12,6 +12,7 @@ const copyCommonPattern = { globOptions: { ignore: ["**/.DS_Store"] } };
 module.exports = {
   entry: {
     background: path.join(entryDir, "background.ts"),
+    content: path.join(entryDir, "content.ts"),
     offscreen: path.join(entryDir, "offscreen.ts"),
     option: path.join(entryDir, "option.tsx"),
     popup: path.join(entryDir, "popup.tsx"),
